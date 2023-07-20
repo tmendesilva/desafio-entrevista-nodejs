@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CompanyEntity } from '../../entities/company.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CompanyEntity } from '../../entities/company.entity';
 import { CompanySchema } from 'src/schemas/company.schema';
 
 @Injectable()
@@ -34,6 +34,7 @@ export class CompanyService {
   }
 
   async delete(id: number) {
-    return await this.companyRepository.softDelete(id);
+    await this.findOneOrFail(id);
+    await this.companyRepository.softDelete(id);
   }
 }

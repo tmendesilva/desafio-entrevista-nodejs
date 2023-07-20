@@ -5,6 +5,7 @@ import { CompanyEntity } from '../../entities/company.entity';
 import { Repository } from 'typeorm';
 import { faker } from '@faker-js/faker';
 import * as cnpj from 'validation-br/dist/cpf';
+import { NotFoundException } from '@nestjs/common';
 
 const generateCompany = () => {
   return {
@@ -81,11 +82,21 @@ describe('CompanyService', () => {
       expect(result).toEqual(companyList[0]);
       expect(repository.findOneByOrFail).toHaveBeenCalledTimes(1);
     });
+
+    it('should throw a not found exception', () => {
+      // Arrange
+      jest
+        .spyOn(repository, 'findOneByOrFail')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(service.findOneOrFail(1)).rejects.toThrowError(NotFoundException);
+    });
   });
 
   describe('create', () => {
     it('should create a new company item', async () => {
-      // Arrange
+      // Arrangedepo
       const companyData = generateCompany();
 
       // Act
@@ -111,6 +122,28 @@ describe('CompanyService', () => {
 
       // Assert
       expect(result).toEqual(updatedCompany);
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete a company successfully', async () => {
+      // Act
+      const result = await service.delete(1);
+
+      // Assert
+      expect(result).toBeUndefined();
+      expect(repository.findOneByOrFail).toHaveBeenCalledTimes(1);
+      expect(repository.softDelete).toHaveBeenCalledTimes(1);
+    });
+
+    it('should throw a not found exception', () => {
+      // Arrange
+      jest
+        .spyOn(repository, 'findOneByOrFail')
+        .mockRejectedValueOnce(new Error());
+
+      // Assert
+      expect(service.delete(1)).rejects.toThrowError(NotFoundException);
     });
   });
 });

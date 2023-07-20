@@ -1,0 +1,41 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { VehicleSchema } from 'src/schemas/vehicle.schema';
+import { VehicleService } from 'src/services/vehicle/vehicle.service';
+
+@Controller('vehicle')
+export class VehicleController {
+  constructor(private service: VehicleService) {}
+
+  @Post()
+  async create(@Body() body: VehicleSchema) {
+    return await this.service.create(body);
+  }
+
+  @Get()
+  public async findAll() {
+    return await this.service.findAll();
+  }
+
+  @Get(':id')
+  public async findOne(@Param('id') id: number) {
+    return await this.service.findOneOrFail(id);
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() body: VehicleSchema) {
+    return await this.service.update(id, body);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    return await this.service.delete(id);
+  }
+}
