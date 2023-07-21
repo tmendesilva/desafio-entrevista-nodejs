@@ -73,10 +73,10 @@ describe('CompanyService', () => {
     });
   });
 
-  describe('findOneOrFail', () => {
+  describe('findOneByOrFail', () => {
     it('should return a company item', async () => {
       // Act
-      const result = await service.findOneOrFail(1);
+      const result = await service.findOneByOrFail(1);
 
       // Assert
       expect(result).toEqual(companyList[0]);
@@ -90,7 +90,9 @@ describe('CompanyService', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(service.findOneOrFail(1)).rejects.toThrowError(NotFoundException);
+      expect(service.findOneByOrFail(1)).rejects.toThrowError(
+        NotFoundException,
+      );
     });
   });
 

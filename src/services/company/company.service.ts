@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CompanyDto } from 'src/dtos/company.dto';
+import { Repository } from 'typeorm';
 import { CompanyEntity } from '../../entities/company.entity';
-import { CompanySchema } from 'src/schemas/company.schema';
 
 @Injectable()
 export class CompanyService {
@@ -11,7 +11,7 @@ export class CompanyService {
     private readonly companyRepository: Repository<CompanyEntity>,
   ) {}
 
-  async create(data: CompanySchema) {
+  async create(data: CompanyDto) {
     return await this.companyRepository.save(data);
   }
 
@@ -19,22 +19,22 @@ export class CompanyService {
     return await this.companyRepository.find();
   }
 
-  async findOneOrFail(id: number) {
+  async findOneByOrFail(id: number) {
     try {
-      return await this.companyRepository.findOneByOrFail({ id: id });
+      return await this.companyRepository.findOneByOrFail({ id });
     } catch (error) {
       throw new NotFoundException(error.message);
     }
   }
 
-  async update(id: number, data: CompanySchema) {
-    const company = await this.findOneOrFail(id);
+  async update(id: number, data: CompanyDto) {
+    const company = await this.findOneByOrFail(id);
     this.companyRepository.merge(company, data);
     return await this.companyRepository.save(company);
   }
 
   async delete(id: number) {
-    await this.findOneOrFail(id);
+    await this.findOneByOrFail(id);
     await this.companyRepository.softDelete(id);
   }
 }

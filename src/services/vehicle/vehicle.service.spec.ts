@@ -71,10 +71,10 @@ describe('VehicleService', () => {
     });
   });
 
-  describe('findOneOrFail', () => {
+  describe('findOneByOrFail', () => {
     it('should return a vehicle item', async () => {
       // Act
-      const result = await service.findOneOrFail(1);
+      const result = await service.findOneByOrFail(1);
 
       // Assert
       expect(result).toEqual(vehicleList[0]);
@@ -88,7 +88,9 @@ describe('VehicleService', () => {
         .mockRejectedValueOnce(new Error());
 
       // Assert
-      expect(service.findOneOrFail(1)).rejects.toThrowError(NotFoundException);
+      expect(service.findOneByOrFail(1)).rejects.toThrowError(
+        NotFoundException,
+      );
     });
   });
 

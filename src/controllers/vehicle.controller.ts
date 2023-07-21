@@ -6,16 +6,19 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
-import { VehicleSchema } from 'src/schemas/vehicle.schema';
+import { AuthGuard } from '@nestjs/passport';
+import { VehicleDto } from 'src/dtos/vehicle.dto';
 import { VehicleService } from 'src/services/vehicle/vehicle.service';
 
 @Controller('vehicle')
+@UseGuards(AuthGuard('jwt'))
 export class VehicleController {
   constructor(private service: VehicleService) {}
 
   @Post()
-  async create(@Body() body: VehicleSchema) {
+  async create(@Body() body: VehicleDto) {
     return await this.service.create(body);
   }
 
@@ -26,11 +29,11 @@ export class VehicleController {
 
   @Get(':id')
   public async findOne(@Param('id') id: number) {
-    return await this.service.findOneOrFail(id);
+    return await this.service.findOneByOrFail(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() body: VehicleSchema) {
+  async update(@Param('id') id: number, @Body() body: VehicleDto) {
     return await this.service.update(id, body);
   }
 

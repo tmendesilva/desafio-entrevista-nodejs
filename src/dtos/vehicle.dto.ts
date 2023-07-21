@@ -1,6 +1,6 @@
 import { IsString, MaxLength } from 'class-validator';
 
-export class VehicleSchema {
+export class VehicleDto {
   @IsString()
   @MaxLength(150)
   brand: string;

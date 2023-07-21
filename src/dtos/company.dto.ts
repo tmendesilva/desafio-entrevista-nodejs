@@ -1,7 +1,7 @@
 import { IsNumber, IsString, MaxLength } from 'class-validator';
 import { CnpjValidator } from '../validators/cnpj.validator';
 
-export class CompanySchema {
+export class CompanyDto {
   @IsString()
   @MaxLength(150)
   name: string;

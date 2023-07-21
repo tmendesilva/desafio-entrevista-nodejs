@@ -6,16 +6,19 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
+import { CompanyDto } from '../dtos/company.dto';
 import { CompanyService } from '../services/company/company.service';
-import { CompanySchema } from '../schemas/company.schema';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('company')
+@UseGuards(AuthGuard('jwt'))
 export class CompanyController {
   constructor(private service: CompanyService) {}
 
   @Post()
-  async create(@Body() body: CompanySchema) {
+  async create(@Body() body: CompanyDto) {
     return await this.service.create(body);
   }
 
@@ -26,11 +29,11 @@ export class CompanyController {
 
   @Get(':id')
   public async findOne(@Param('id') id: number) {
-    return await this.service.findOneOrFail(id);
+    return await this.service.findOneByOrFail(id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() body: CompanySchema) {
+  async update(@Param('id') id: number, @Body() body: CompanyDto) {
     return await this.service.update(id, body);
   }
 

@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { VehicleDto } from 'src/dtos/vehicle.dto';
+import { Repository } from 'typeorm';
 import { VehicleEntity } from '../../entities/vehicle.entity';
-import { VehicleSchema } from 'src/schemas/vehicle.schema';
 
 @Injectable()
 export class VehicleService {
@@ -11,7 +11,7 @@ export class VehicleService {
     private readonly vehicleRepository: Repository<VehicleEntity>,
   ) {}
 
-  async create(data: VehicleSchema) {
+  async create(data: VehicleDto) {
     return await this.vehicleRepository.save(data);
   }
 
@@ -19,22 +19,22 @@ export class VehicleService {
     return await this.vehicleRepository.find();
   }
 
-  async findOneOrFail(id: number) {
+  async findOneByOrFail(id: number) {
     try {
-      return await this.vehicleRepository.findOneByOrFail({ id: id });
+      return await this.vehicleRepository.findOneByOrFail({ id });
     } catch (error) {
       throw new NotFoundException(error.message);
     }
   }
 
-  async update(id: number, data: VehicleSchema) {
-    const vehicle = await this.findOneOrFail(id);
+  async update(id: number, data: VehicleDto) {
+    const vehicle = await this.findOneByOrFail(id);
     this.vehicleRepository.merge(vehicle, data);
     return await this.vehicleRepository.save(vehicle);
   }
 
   async delete(id: number) {
-    await this.findOneOrFail(id);
+    await this.findOneByOrFail(id);
     await this.vehicleRepository.softDelete(id);
   }
 }
