@@ -20,7 +20,7 @@ Define varibles cloning `.env-dev-example` to `.env`, For JWT_SECRET_KEY use the
 openssl rand -base64 32
 ```
 
-```json
+```env
 PORT=3000
 MODE=DEV
 RUN_MIGRATIONS=true
