@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
+import { TicketEntity } from './ticket.entity';
 
 @Entity('vehicle')
 export class VehicleEntity extends BaseEntity {
@@ -17,6 +18,9 @@ export class VehicleEntity extends BaseEntity {
 
   @Column({ length: 30 })
   type: string;
+
+  @OneToMany(() => TicketEntity, (ticket) => ticket.vehicle)
+  tickets: TicketEntity[];
 
   public static of(params: Partial<VehicleEntity>): VehicleEntity {
     const vehicle = new VehicleEntity();

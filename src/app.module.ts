@@ -6,12 +6,14 @@ import { AuthModule } from './modules/auth.module';
 import { CompanyModule } from './modules/company.module';
 import { UserModule } from './modules/user.module';
 import { VehicleModule } from './modules/vehicle.module';
+import { TicketService } from './services/ticket/ticket.service';
+import { TicketModule } from './modules/ticket.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
+      type: 'mysql',
       host: process.env.DB_HOST,
       port: parseInt(<string>process.env.DB_PORT),
       username: process.env.DB_USERNAME,
@@ -21,10 +23,11 @@ import { VehicleModule } from './modules/vehicle.module';
       synchronize: process.env.MODE === 'DEV',
     }),
     AppModule,
-    CompanyModule,
-    VehicleModule,
     UserModule,
     AuthModule,
+    CompanyModule,
+    VehicleModule,
+    TicketModule,
   ],
   controllers: [],
   providers: [],

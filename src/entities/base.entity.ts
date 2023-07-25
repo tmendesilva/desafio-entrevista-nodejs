@@ -13,18 +13,12 @@ export abstract class BaseEntity {
   @Column({ type: 'boolean', default: true })
   is_active: boolean;
 
-  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column({ type: 'varchar', length: 300, default: 'Admin' })
-  created_by: string;
-
-  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn()
   updated_at: Date;
 
-  @Column({ type: 'varchar', length: 300, default: 'Admin' })
-  updated_by: string;
-
-  @DeleteDateColumn({ type: 'timestamptz' })
+  @DeleteDateColumn()
   deleted_at: Date;
 }

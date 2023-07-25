@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
+import { VehicleTypeValidator } from '../validators/vehicle.validator';
 
 export class VehicleDto {
   @IsNotEmpty()
@@ -28,7 +29,7 @@ export class VehicleDto {
 
   @IsNotEmpty()
   @IsString()
-  @MaxLength(30)
+  @VehicleTypeValidator()
   @ApiProperty()
   type: string;
 }
