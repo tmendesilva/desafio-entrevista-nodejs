@@ -7,6 +7,7 @@
 - TypeORM
 - JWT Token
 - Swagger
+- Jest
 
 # How to run
 
