@@ -1,8 +1,10 @@
 # Tecnologies
 
+- Linux
+- Docker
+- MySQL
 - NestJS
 - TypeORM
-- PostgreSQL
 - JWT Token
 - Swagger
 
