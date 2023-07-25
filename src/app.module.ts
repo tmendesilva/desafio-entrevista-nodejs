@@ -2,14 +2,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as process from 'process';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthController } from './controllers/auth.controller';
 import { AuthModule } from './modules/auth.module';
 import { CompanyModule } from './modules/company.module';
 import { UserModule } from './modules/user.module';
 import { VehicleModule } from './modules/vehicle.module';
-import { AuthService } from './services/auth/auth.service';
 
 @Module({
   imports: [
@@ -30,7 +26,7 @@ import { AuthService } from './services/auth/auth.service';
     UserModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

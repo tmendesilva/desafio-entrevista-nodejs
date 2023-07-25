@@ -9,7 +9,7 @@ import { NotFoundException } from '@nestjs/common';
 
 const generateCompany = () => {
   return {
-    name: faker.person.fullName(),
+    name: faker.company.name(),
     cnpj: cnpj.fake(),
     address: faker.location.streetAddress(),
     phone: faker.phone.number('## #####-####'),

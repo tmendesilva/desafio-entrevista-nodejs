@@ -11,9 +11,12 @@ import {
 import { CompanyDto } from '../dtos/company.dto';
 import { CompanyService } from '../services/company/company.service';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('company')
+@ApiTags('Company')
 @UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
 export class CompanyController {
   constructor(private service: CompanyService) {}
 

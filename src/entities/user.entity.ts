@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, Unique } from 'typeorm';
+import { BeforeInsert, Column, Entity } from 'typeorm';
 import { hashSync } from 'bcrypt';
 import { BaseEntity } from './base.entity';
 
@@ -16,5 +16,11 @@ export class UserEntity extends BaseEntity {
   @BeforeInsert()
   hashPassword() {
     this.password = hashSync(this.password, 10);
+  }
+
+  public static of(params: Partial<UserEntity>): UserEntity {
+    const user = new UserEntity();
+    Object.assign(user, params);
+    return user;
   }
 }

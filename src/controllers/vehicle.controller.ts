@@ -9,11 +9,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { VehicleDto } from 'src/dtos/vehicle.dto';
 import { VehicleService } from 'src/services/vehicle/vehicle.service';
 
 @Controller('vehicle')
+@ApiTags('Vehicle')
 @UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
 export class VehicleController {
   constructor(private service: VehicleService) {}
 
