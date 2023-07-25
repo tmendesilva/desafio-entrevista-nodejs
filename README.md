@@ -26,9 +26,9 @@ MODE=DEV
 RUN_MIGRATIONS=true
 
 DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=postgres
+DB_PORT=3306
+DB_USERNAME=mysql
+DB_PASSWORD=mysql
 DB_DATABASE=parking_management
 
 JWT_SECRET_KEY=abcdef12345
